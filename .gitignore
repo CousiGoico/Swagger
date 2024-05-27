@@ -1,5 +1,8 @@
+# Output
+/obj
+/bin
+
 # Binaries for programs and plugins
 *.exe
 *.dll
 *.cache
-/obj
