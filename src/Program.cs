@@ -30,7 +30,7 @@ class Program
 
     static string createPostmanJson(SwaggerClass swaggerClass, List<MethodClass> methods) {
         var postmanCollection = new PostmanCollection();
-        postmanCollection.Info = new PostmanInfo() { Name = swaggerClass.Info.Title };
+        postmanCollection.Info = new PostmanInfo() { Name = swaggerClass.Info?.Title };
         postmanCollection.Item = new List<PostmanItem>();
         methods.ForEach(method =>
         {
