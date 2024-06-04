@@ -1,4 +1,6 @@
- namespace Swagger{
+using Newtonsoft.Json;
+
+namespace Swagger{
 
 class MethodLine {
     public string Name { get; set; }
