@@ -1,6 +1,6 @@
 # Output
-/obj
-/bin
+/src/obj
+/src/bin
 
 # Binaries for programs and plugins
 *.exe
