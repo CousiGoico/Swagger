@@ -108,7 +108,8 @@ class Program
         for (var line = 0; line < methodLines.Count; line++) 
         {
             var item = methodLines[line];
-            if (item.Contains("/api/") || item.Contains("/app")) {
+            bool checkIsMethod = item.Trim().StartsWith("\"/") && item.Split("/").Length >= 1 && item.EndsWith(": {");
+            if (checkIsMethod || item.Contains("/api/") || item.Contains("/app")) {
                 methods.Add(new MethodLine() { Name = item, Start = line + 1 });
             }
         }
