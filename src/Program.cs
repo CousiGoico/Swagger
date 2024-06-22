@@ -11,11 +11,13 @@ class Program
     }
 
     static void ReadSwaggerJson() {
-        var swaggerText = File.ReadAllText(@"c:\temp\Swagger.json");
+        var swaggerFilePath = @"c:\temp\Swagger.json";
+        var swaggerText = File.ReadAllText(swaggerFilePath);
         var swaggerClass = JsonConvert.DeserializeObject<SwaggerClass>(swaggerText);
 
-        var methods = SwaggerClass.ProcessMethods();
-        var json = PostmanCollection.CreatePostmanJson(swaggerClass, methods);
+        var swaggerToPostman = new SwaggerToPostman(swaggerFilePath);
+        var methods = swaggerToPostman.ProcessMethods();
+        var json = swaggerToPostman.CreatePostmanJson(swaggerClass, methods);
 
         File.WriteAllText(@"c:\temp\collection_swagger.json", json);
     }
