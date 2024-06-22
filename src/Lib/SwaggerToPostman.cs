@@ -51,10 +51,13 @@ namespace Swagger {
                 string methodContent = string.Join(" ", methodLines.GetRange(method.Start, method.End - method.Start).ToArray());
                 if (string.IsNullOrEmpty(methodContent) == false) {
                     Console.WriteLine($"MethodNumber: {methodNumber}");
-                    MethodClass methodDefinition = JsonConvert.DeserializeObject<MethodClass>("{" + methodContent + "}");
-                    methodDefinition.path = method.Name.Trim().Replace(": {", string.Empty).Replace("\"", string.Empty).Trim();
-                    methodDefinition.path = methodDefinition.path.Replace("{", ":").Replace("}", string.Empty);
-                    methodList.Add(methodDefinition);
+                    methodContent = "{" + methodContent + "}";
+                    MethodClass? methodDefinition = JsonConvert.DeserializeObject<MethodClass>(methodContent);
+                    if (methodDefinition != null) {
+                        methodDefinition.path = method.Name.Trim().Replace(": {", string.Empty).Replace("\"", string.Empty).Trim();
+                        methodDefinition.path = methodDefinition.path.Replace("{", ":").Replace("}", string.Empty);
+                        methodList.Add(methodDefinition);
+                    }
                 }
             }
             return methodList;
@@ -62,31 +65,36 @@ namespace Swagger {
 
         public string CreatePostmanJson(SwaggerClass swaggerClass, List<MethodClass> methods) {
             var postmanCollection = new PostmanCollection();
-            postmanCollection.Info = new PostmanInfo() { Name = swaggerClass.Info?.Title };
+            postmanCollection.Info = new PostmanInfo() { Name = swaggerClass.Info == null ? string.Empty : swaggerClass.Info.Title };
             postmanCollection.Item = new List<PostmanItem>();
             methods.ForEach(method =>
             {
-                string host = swaggerClass.Servers.FirstOrDefault()?.Url;
-                if (method.get != null) {
-                    postmanCollection.Item.Add(createPostmanItem("GET", method.path, method.get, host));
-                }
-                if (method.post != null)
-                {
-                    postmanCollection.Item.Add(createPostmanItem("POST", method.path, method.post, host));
-                }
-                if (method.update != null)
-                {
-                    postmanCollection.Item.Add(createPostmanItem("UPDATE", method.path, method.update, host));
-                }
-                if (method.put != null)
-                {
-                    postmanCollection.Item.Add(createPostmanItem("PUT", method.path, method.put, host));
-                }
-                if (method.delete != null)
-                {
-                    postmanCollection.Item.Add(createPostmanItem("DELETE", method.path, method.delete, host));
-                }
+                if (swaggerClass.Servers != null) {
+                    SwaggerServer? swaggerServer = swaggerClass.Servers.FirstOrDefault();
+                    if (swaggerServer != null) {
+                        string host = swaggerServer.Url;
+                        if (method.get != null) {
+                            postmanCollection.Item.Add(createPostmanItem("GET", method.path, method.get, host));
+                        }
+                        if (method.post != null)
+                        {
+                            postmanCollection.Item.Add(createPostmanItem("POST", method.path, method.post, host));
+                        }
+                        if (method.update != null)
+                        {
+                            postmanCollection.Item.Add(createPostmanItem("UPDATE", method.path, method.update, host));
+                        }
+                        if (method.put != null)
+                        {
+                            postmanCollection.Item.Add(createPostmanItem("PUT", method.path, method.put, host));
+                        }
+                        if (method.delete != null)
+                        {
+                            postmanCollection.Item.Add(createPostmanItem("DELETE", method.path, method.delete, host));
+                        }
 
+                    }
+                }
             });
             return JsonConvert.SerializeObject(postmanCollection);
         }

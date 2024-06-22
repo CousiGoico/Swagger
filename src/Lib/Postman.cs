@@ -3,56 +3,54 @@ using Newtonsoft.Json;
 namespace Swagger{
 
     public class MethodLine {
-        public string Name { get; set; }
-        public int Start { get; set; }
-        public int End { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public int Start { get; set; } = 0;
+        public int End { get; set; } = 0;
     }
 
     public class MethodClass {
-        public string path { get; set; }
-        public MethodDefinition get { get; set; }
-        public MethodDefinition post { get; set; }
-        public MethodDefinition put { get; set; }
-        public MethodDefinition update { get; set; }
-        public MethodDefinition delete { get; set; }
+        public string path { get; set; } = string.Empty;
+        public MethodDefinition? get { get; set; } = null;
+        public MethodDefinition? post { get; set; } = null;
+        public MethodDefinition? put { get; set; } = null;
+        public MethodDefinition? update { get; set; } = null;
+        public MethodDefinition? delete { get; set; } = null;
     }
 
 
     public class MethodDefinition {
-        public string[] tags { get; set; }
-        public string summary { get; set; }
-        public MethodParameter[] parameters { get; set; }
-        //public MethodResponse[] responses { get; set; }
-        public MethodSecurity[] security { get; set; }
+        public string[]? tags { get; set; } = null;
+        public string summary { get; set; } = string.Empty;
+        public MethodParameter[]? parameters { get; set; } = null;
+        public MethodSecurity[]? security { get; set; } = null;
     }
 
     public class MethodParameter {
-        public string name { get; set; }
-        public string @in { get; set; }
-        public string description { get; set; }
-        public bool required { get; set; }
-        public MethodSchema schema { get; set; }
-
+        public string name { get; set; } = string.Empty;
+        public string @in { get; set; } = string.Empty;
+        public string description { get; set; } = string.Empty;
+        public bool required { get; set; } = false;
+        public MethodSchema? schema { get; set; } = null; 
     }
 
     public class MethodSchema {
-        public string type { get; set; }
-        public string format { get; set; }
+        public string type { get; set; } = string.Empty;
+        public string format { get; set; } = string.Empty;
     }
 
     public class MethodResponses {
-        public MethodResponse Ok { get; set; }
-        public MethodResponse BadRequest { get; set; }
-        public MethodResponse Notfound { get; set; }
-        public MethodResponse InternalServerError { get; set; }
+        public MethodResponse? Ok { get; set; } = null;
+        public MethodResponse? BadRequest { get; set; } = null;
+        public MethodResponse? Notfound { get; set; } = null;
+        public MethodResponse? InternalServerError { get; set; } = null;
     }
 
     public class MethodResponse {
-        public string description { get; set; }
+        public string description { get; set; } = string.Empty;
     }
 
     public class MethodContent {
-        public MethodContentType type { get; set; }
+        public MethodContentType? type { get; set; } = null;
     }
 
     public class MethodContentType { 
@@ -68,30 +66,30 @@ namespace Swagger{
         #region Properties 
 
         [JsonProperty("info")]
-        public PostmanInfo Info { get; set; }
+        public PostmanInfo? Info { get; set; } = null;
 
         [JsonProperty("item")]
-        public List<PostmanItem> Item { get; set; } = new List<PostmanItem>();
+        public List<PostmanItem>? Item { get; set; } = null;
 
         #endregion
     }
 
     public class PostmanInfo {
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         [JsonProperty("schema")]
         public string Schema { get; set; } = "\"https://schema.getpostman.com/json/collection/v2.1.0/collection.json\"";
     }
 
     public class PostmanItem {
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [JsonProperty("request")]
-        public PostmanRequest Request { get; set; } = new PostmanRequest();
+        public PostmanRequest? Request { get; set; } = null;
 
         [JsonProperty("response")]
-        public List<PostmanRresponse> Response { get; set; } = new List<PostmanRresponse>();
+        public List<PostmanRresponse>? Response { get; set; } = null;
     }
 
     public class PostmanRresponse { 
@@ -100,45 +98,45 @@ namespace Swagger{
 
     public class PostmanRequest {
         [JsonProperty("method")]
-        public string Method { get; set; }
+        public string Method { get; set; } = string.Empty;
 
         [JsonProperty("header")]
-        public List<PostmanHeader> Header { get; set; }
+        public List<PostmanHeader>? Header { get; set; } = null;
 
         [JsonProperty("url")]
-        public PostmanUrl Url { get; set; }
+        public PostmanUrl? Url { get; set; } = null;
 
         [JsonProperty("auth")]
-        public PostmanAuth Auth { get; set; }
+        public PostmanAuth? Auth { get; set; } = null;
 
         [JsonProperty("body")]
-        public PostmanBody Body { get; set; }
+        public PostmanBody? Body { get; set; } = null;
     }
 
     public class PostmanBody
     {
         [JsonProperty("mode")]
-        public string Mode { get; set; }
+        public string Mode { get; set; } = string.Empty;
 
         [JsonProperty("urlencoded")]
-        public List<PostmanHeader> Urlencoded { get; set; }
+        public List<PostmanHeader>? Urlencoded { get; set; } = null;
 
         [JsonProperty("raw")]
-        public string Raw { get; set; }
+        public string Raw { get; set; } = string.Empty;
 
         [JsonProperty("Options")]
-        public string Options { get; set; }
+        public string Options { get; set; } = string.Empty;
     }
 
     public class PostmanBodyOptions
     {
         [JsonProperty("raw")]
-        public PostmanLanguage Raw { get; set; }
+        public PostmanLanguage? Raw { get; set; } = null;
     }
 
     public class PostmanLanguage {
         [JsonProperty("language")]
-        public string Language { get; set; }
+        public string Language { get; set; } = string.Empty;
     }
 
     public class PostmanAuth {
@@ -148,40 +146,40 @@ namespace Swagger{
 
     public class PostmanHeader {
         [JsonProperty("key")]
-        public string Key { get; set; }
+        public string Key { get; set; } = string.Empty;
 
         [JsonProperty("value")]
-        public string Value { get; set; }
+        public string Value { get; set; } = string.Empty;
 
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string Type { get; set; } = string.Empty;
     }
 
     public class PostmanUrl {
         [JsonProperty("raw")]
-        public string Raw { get; set; }
+        public string Raw { get; set; } = string.Empty;
 
         [JsonProperty("protocol")]
-        public string Protocol { get; set; }
+        public string Protocol { get; set; } = string.Empty;
 
         [JsonProperty("host")]
-        public List<string> Host { get; set; }
+        public List<string>? Host { get; set; } = null;
 
         [JsonProperty("path")]
-        public List<string> Path { get; set; }
+        public List<string>? Path { get; set; } = null;
 
         [JsonProperty("query")]
-        public List<PostmanQuery> Query { get; set; }
+        public List<PostmanQuery>? Query { get; set; } = null;
     }
 
     public class PostmanQuery {
         [JsonProperty("key")]
-        public string Key { get; set; }
+        public string Key { get; set; } = string.Empty;
 
         [JsonProperty("value")]
-        public string Value { get; set; }
+        public string Value { get; set; } = string.Empty;
 
         [JsonProperty("disabled")]
-        public bool Disabled { get; set; }
+        public bool Disabled { get; set; } = false;
     }
 }

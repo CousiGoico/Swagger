@@ -8,19 +8,19 @@ namespace Swagger
         #region Properties 
 
         [JsonPropertyName("openapi")]
-        public string OpenAPI { get; set; }
+        public string OpenAPI { get; set; } = string.Empty;
 
         [JsonPropertyName("info")]
-        public SwaggerInfo Info { get; set; }
+        public SwaggerInfo? Info { get; set; } = null;
 
         [JsonPropertyName("servers")]
-        public List<SwaggerServer> Servers { get; set; }
+        public List<SwaggerServer>? Servers { get; set; } = null;   
 
         [JsonPropertyName("paths")]
-        public SwaggerPaths Paths { get; set; }
+        public SwaggerPaths? Paths { get; set; } = null;
 
         [JsonPropertyName("components")]
-        public SwaggerComponents Components { get; set; }
+        public SwaggerComponents? Components { get; set; } = null;
 
         #endregion
     }
@@ -29,15 +29,15 @@ namespace Swagger
     {
 
         [JsonPropertyName("title")]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         [JsonPropertyName("version")]
-        public string Version { get; set; }
+        public string Version { get; set; } = string.Empty;
     }
 
     public class SwaggerServer {
         [JsonPropertyName("url")]
-        public string Url { get; set; }
+        public string Url { get; set; } = string.Empty;
     }
 
     public class SwaggerPaths {     
@@ -46,22 +46,22 @@ namespace Swagger
 
     public class SwaggerComponents {
         [JsonPropertyName("schemas")]
-        public SwaggerSchemas Schemas { get; set; }
+        public SwaggerSchemas? Schemas { get; set; } = null;
     }
 
     public class SwaggerSchemas {
         [JsonPropertyName("*")]
-        public SwaggerType SwaggerType { get; set; }
+        public SwaggerType? SwaggerType { get; set; } = null;
 
-        public string SwaggerTypeName { get; set; }
+        public string SwaggerTypeName { get; set; } = string.Empty;
     }
 
     public class SwaggerType {
         [JsonPropertyName("type")]
-        public string Type { get; set; }
+        public string Type { get; set; } = string.Empty;
 
         [JsonPropertyName("properties")]
-        public SwaggerProperties Properties { get; set; }
+        public SwaggerProperties? Properties { get; set; } = null;
     }
 
     public class SwaggerProperties { 
